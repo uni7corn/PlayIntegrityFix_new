@@ -24,7 +24,7 @@ Solution:
 - Google will take the risk of banning the Keybox file detected by the search engine (search bot) and bans it no matter what.
 
 Solution:
-Special site need (https://developers.google.com/search/docs/crawling-indexing/google-special-case-crawlers#google-safety).
+[Special site](https://tryigit.dev/keybox/)
 
 Google has set up an automated system so that it will not do anything unless something that is not easy to find and will not damage the company's reputation is found. In addition, Google employees are almost not even interested in Play Integrity and don't care. 
 
