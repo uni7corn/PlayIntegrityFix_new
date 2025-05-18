@@ -107,7 +107,7 @@ in device
 /data/adb/tricky_store/keybox.xml
 ```
 **Simple Strong Guide:**
-Just move the Keybox file you found to the right directory.
+Just move the Keybox file you found to the right directory. [To find and contribute to Keybox](https://tryigit.dev/keybox/)
 
 ## Security Patch File (PIFS)
 First you need to create it, it does not exist by default. Allows you to pass A13+ tests on EOL devices.
