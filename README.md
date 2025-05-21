@@ -1,5 +1,7 @@
 # China?
-Since all users generally use this module, China Rom developments are integrated into this module. So this module is recommended for official China Rom.
+Since all users generally use this module, China Rom developments are integrated into this module. So this module is recommended for official China Rom. 
+
+Do not update Play Store apk on China roms and use the original app store of the phone (like getapps).
 
 > [!CAUTION]
 > This module removes Magisk 32bit support permanently! The only way to restore 32bit support is to reinstall Magisk and other Zygisk modules. So install it with that in mind.
