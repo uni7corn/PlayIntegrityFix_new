@@ -76,7 +76,10 @@ A list of package names that the module will target.
 Used for certificate spoofing to pass the `STRONG` integrity check.
 *   **PIFB Path:** `/data/adb/keybox.xml`
 *   **PIFS Path:** `/data/adb/tricky_store/keybox.xml`
-*   **Guide:** To find and contribute keybox files, visit [tryigit.dev/keybox/](https://tryigit.dev/keybox/).
+*   **Guide:** To find and contribute keybox files, visit
+[KeyboxHub](https://tryigit.dev/keybox/).
+
+[Keybox Checker](https://tryigit.dev/keybox/checker/).
 
 ### Security Patch File (PIFS Only)
 Spoofs the security patch date, which can help pass integrity checks on EOL (End-of-Life) devices running Android 13+. This file does not exist by default; you must create it.
@@ -112,4 +115,4 @@ getprop ro.boot.hwc
 *   **Telegram:** For discussions and community support, join the [Clever Tech Telegram Group](https://t.me/cleverestech).
 
 > [!NOTE]
-> This project is shared "as-is" for users who find it helpful. This GitHub repository primarily serves to distribute updates and is a fork of another project (see changelog for attribution). Due to time constraints, direct support via GitHub Issues may be limited.
+> This project is shared "as-is" for users who find it helpful. This GitHub repository primarily serves to distribute updates and is a fork of another project (see changelog for attribution).
