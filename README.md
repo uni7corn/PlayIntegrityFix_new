@@ -2,158 +2,114 @@
 Since all users generally use this module, China Rom developments are integrated into this module. So this module is recommended for official China Rom. 
 
 > [!CAUTION]
-> This module removes Magisk 32bit support permanently! The only way to restore 32bit support is to reinstall Magisk and other Zygisk modules. So install it with that in mind.
+> This module will permanently remove 32-bit support from your Magisk installation. The only way to restore it is by completely reinstalling Magisk and your other Zygisk modules. Please understand this consequence before proceeding.
 
-# Diff Versions
+---
 
-## PIFS China
-**P**lay **I**ntegrity **F**ix Advanced
+## 🚀 Module Versions: PIFS vs. PIFB
 
-New and improved version that passes the Strong test (Includes BL Hiding). Infrastructure from Lsposed developers. Target apps can be customized, does not affect the system. Default to affect all apps.
+This project offers two distinct versions to suit different needs. Choose the one that best fits your device and use case.
 
-### PIFS Required
-* Android 11+
-* Zygisk
-* 64bit cpu (armv8a)
-* Official Rom (China Recommended)
-* Magisk or KernelSU
-
-## PIFB China
-**P**lay **I**ntegrity **F**ix Lite
-
-Old and less ram consuming method. It does not affect the other applications in the same way as the PIFS module, only the Google Gsf app hook.
-
-### PIFB Required
-* Android 10+
-* Zygisk
-* 64bit cpu (armv8a)
-* Any Rom (China Recommended)
-* TEE Supported Device (Not Broken)
-* Magisk or KernelSU
+| Feature / Aspect      | PIFS (Advanced) 🧠                                        | PIFB (Lite) 🍃                                             |
+| --------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| **Full Name**         | Play Integrity Fix **Advanced**                            | Play Integrity Fix **Lite**                                |
+| **Core Method**       | New, improved infrastructure from Lsposed developers.      | Older, lightweight method.                                 |
+| **Targeting**         | Granular control: Affects only apps in `target.txt`.       | Global: Hooks only the Google Services Framework (GSF).    |
+| **Bootloader Hiding** | ✅ Yes, includes advanced Bootloader hiding.               | ❌ No, basic props only.                                   |
+| **RAM Usage**         | Higher                                                     | Lower                                                      |
+| **Android Requirement** | Android 11+                                              | Android 10+                                                |
+| **ROM Compatibility** | Any ROM (Official China ROM recommended)                   | Any ROM (Official China ROM recommended)                   |
+| **Hardware Key**      | Not strictly required.                                     | TEE (Trusted Execution Environment) must be functional.    |
 
 > [!WARNING]
-> The reason fingerprints/keyboxs are banned inside the module is too many test checks. So do not check unnecessarily.
+> Frequent integrity checks can lead to your device's fingerprint/keybox being blocked by Google. **Avoid checking unnecessarily.**
 
-# Features
-+ **Set motherboard to MP**
+---
 
-The phone software recognizes your device's motherboard as the original motherboard.
+## 📋 Requirements
 
-+ **Setting the motherboard country to China**
+Before installing, ensure your device meets these requirements:
 
-Xiaomi may impose some restrictions on regional roms. Unfortunately, some phones like the Xiaomi 12T Pro require additional things like setting the model number. However, this feature is sufficient for models like the Xiaomi 13.
+*   **Root Solution:** Magisk or KernelSU
+*   **Zygisk:** Enabled
+*   **CPU Architecture:** 64-bit (arm64-v8a)
+*   **ROM:** Official ROM is highly recommended for best results (especially China ROM).
 
-+ **Permanently removing 32bit support for Magisk and modules**
+---
 
-Magisk zygisk will not use ram unnecessarily. Also modules like lsposed.
+## ✨ Key Features
 
+### General Features (Applicable to Both Versions)
+*   **Motherboard Spoofing:**
+    *   **`ro.product.board` -> `MP`:** Sets the motherboard identifier to `MP` (Mass Production), making it appear as a standard retail device.
+    *   **`ro.boot.hwc` -> `CN`:** Sets the hardware country code to China. This can help bypass regional restrictions on some Xiaomi devices.
+*   **32-bit Support Removal:** Disables 32-bit components in Magisk and Zygisk-dependent modules (like LSPosed) to reduce unnecessary RAM usage.
+*   **Zygote 32-bit Lazyload (Xiaomi):** On supported Xiaomi devices, the 32-bit Zygote process will only launch when a 32-bit app is opened, saving RAM at the cost of a slight initial launch delay for those apps. Also disables 32-bit dex2oat optimization.
+*   **Disable LSPosed Logs:** Prevents apps from detecting Zygisk by reading LSPosed properties via `getprop`.
+*   **Dynamic Prop Hiding:** If Shamiko is installed, the module avoids setting redundant properties. If Shamiko is not present, it applies basic properties to help bypass simple bootloader checks.
+
+### Version-Specific Features
+*   **Advanced Bootloader Hiding (PIFS Only):** Actively prevents applications from detecting an unlocked bootloader. By default, this targets all applications for maximum effectiveness.
+*   **Prop & Certificate Spoofing:**
+    *   **PIFB (Lite):** A simple and classic hook that only targets the GMS (Google Mobile Services) process to spoof the device certificate.
+    *   **PIFS (Advanced):** A modern and customizable method that spoofs the certificate only for apps defined in `target.txt`.
+    *   *Both versions* automatically use a random keybox file on each boot to evade detection.
+
+---
+
+## 🛠️ Configuration & File Paths
+
+You can customize the module's behavior by creating or modifying the files below.
+
+### Fingerprint File (PIFB Only)
+Used to spoof the device fingerprint.
+*   **Path:** `/data/adb/pif.json`
+
+### Target Apps File (PIFS Only)
+A list of package names that the module will target.
+*   **Path:** `/data/adb/tricky_store/target.txt`
 > [!NOTE]
-> Shamiko and LSPosed module pushes 32bit support (file integrity check) and causes an error, report this to the Shamiko/LSPosed developer. Shamiko/LSPosed is excluded for now.
+> To customize this list, you **must first delete** the script below, which auto-populates it on every boot.
+> `/data/adb/tricky_store/AllAppsTarget.sh`
 
-+ **All System Apps Add Magiskhide List**
+### Keybox File (PIFS & PIFB)
+Used for certificate spoofing to pass the `STRONG` integrity check.
+*   **PIFB Path:** `/data/adb/keybox.xml`
+*   **PIFS Path:** `/data/adb/tricky_store/keybox.xml`
+*   **Guide:** To find and contribute keybox files, visit [tryigit.dev/keybox/](https://tryigit.dev/keybox/).
 
-Disabled by default. You have to modify the file manually to use it. You can enhance and pull req send if you want. If you are using custom roms, please do not use this feature.
+### Security Patch File (PIFS Only)
+Spoofs the security patch date, which can help pass integrity checks on EOL (End-of-Life) devices running Android 13+. This file does not exist by default; you must create it.
+*   **Path:** `/data/adb/tricky_store/security_patch.txt`
+*   **Example Content** (for January 1, 2025):
+    ```
+    20250101
+    ```
 
-+ **Zygote 32bit lazyload support for Xiaomi devices**
+---
 
-If you have a good processor, 32bit will use less ram. The basic logic is that zygote32 will not run unnecessarily until a 32bit application is opened. This feature may affect the opening speed of 32bit apps, but who cares?
-The dex2oat 32bit optimization is also disabled
+## ⚙️ Advanced Settings (Use with Caution)
 
-+ **Disable lsposed logs**
-
-Some apps can detect Zygisk by reading lsposed logs with getprop. This module prevents that.
-
-+ **Dynamic prop hiding**
-
-If there is a Shamiko module, it will not set props unnecessarily. It allows you to bypass simple bootloader checks if you do not have the Shamiko module.
-
-+ **Advanced bootloader hiding**
-
-You can prevent apps from detecting the bootloader lock. By default all apps, including system apps, are added to the target.txt file.
-
-+ **Prop spoof (PIFB)**
-
-Droidguard reads information like fingerprint and device model differently. So Hook. File is not set by default.
-
-+ **BL certificate spoof**
-
-The *PIFB version* only affects the gms app. It is simple and old.
-The *PIFS version* only affects target.txt apps and can be customized. Includes some advanced stuff.
-*Both versions* randomly replace a keybox file to avoid detection, and replace it on reboot.
-
-## Fingerprint File (PIFB)
-in device
-```
-/data/adb/pif.json
-```
-## Target File (PIFS)
-```
-/data/adb/tricky_store/target.txt
-```
-> [!NOTE]
-> If you want to customize it, remove this file because it will be overwritten after every reboot.
-```
-/data/adb/tricky_store/AllAppsTarget.sh
-```
-## Keybox File
-in device
-
-**PIFB:**
-```
-/data/adb/keybox.xml
-```
-**PIFS:**
-```
-/data/adb/tricky_store/keybox.xml
-```
-**Simple Strong Guide:**
-Just move the Keybox file you found to the right directory. [To find and contribute to Keybox](https://tryigit.dev/keybox/)
-
-## Security Patch File (PIFS)
-First you need to create it, it does not exist by default. Allows you to pass A13+ tests on EOL devices.
-
-**File Path:**
-```
-/data/adb/tricky_store/security_patch.txt
-```
-**Example Usage:**
-```
-# os/vendor/boot security patch level 2025-01-01
-20250101
-```
-
-## All Target Setting (PIFS)
-Add all apps to the target.txt list automatically. It is enabled by default and needs to be removed to customize.
-
-```
-/data/adb/tricky_store/AllAppsTarget.sh
-```
-
-## Advanced Settings
-Add system apps to the Magiskhide list automatically (Currently Development). Move to file paths to active it. 
+### Add All System Apps to Magisk's DenyList
+This experimental feature automatically adds all system apps to the Magisk DenyList. It is disabled by default due to potential conflicts.
 
 > [!WARNING]
-> There will be incompatibility with modules that modify system files such as GPU Driver. That is why it is not the default.
+> This feature may cause instability or break modules that modify system files (e.g., custom GPU drivers). **Do not use on Custom ROMs.** To enable it, move the corresponding script file into its active path.
 
-**PIFB:**
-```
-/data/adb/SystemAppAdd.sh
-```
-**PIFS**
-```
-/data/adb/tricky_store/AllTargetMagiskhide.sh
-```
+*   **PIFB Script:** `/data/adb/SystemAppAdd.sh`
+*   **PIFS Script:** `/data/adb/tricky_store/AllTargetMagiskhide.sh`
 
-## Motherboard Check
-The factory location information on your phone's motherboard.
-```
+### How to Check Your Motherboard's Hardware Country
+Run this command in a terminal to see your device's factory region code:
+```sh
 getprop ro.boot.hwc
 ```
 
-## Telegram
-([Clever Tech Telegram Group](https://t.me/cleverestech))
+---
+
+## 💬 Community & Disclaimer
+
+*   **Telegram:** For discussions and community support, join the [Clever Tech Telegram Group](https://t.me/cleverestech).
 
 > [!NOTE]
-> I do not share my own projects on github (This project is only for updates), so this is a fork. You can see whose project I forked in the changelog.
-
-These are just things that I make and use myself, and I share them because people want them, so I don't look at the issues much and I don't waste my time. It's not worth it.
+> This project is shared "as-is" for users who find it helpful. This GitHub repository primarily serves to distribute updates and is a fork of another project (see changelog for attribution). Due to time constraints, direct support via GitHub Issues may be limited.
