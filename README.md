@@ -39,7 +39,7 @@ Before installing, ensure your device meets these requirements:
 
 ## ✨ Key Features
 
-### General Features (Applicable to Both Versions)
+### General Features
 *   **Motherboard Spoofing:**
     *   **`ro.product.board` -> `MP`:** Sets the motherboard identifier to `MP` (Mass Production), making it appear as a standard retail device.
     *   **`ro.boot.hwc` -> `CN`:** Sets the hardware country code to China. This can help bypass regional restrictions on some Xiaomi devices.
@@ -47,6 +47,12 @@ Before installing, ensure your device meets these requirements:
 *   **Zygote 32-bit Lazyload (Xiaomi):** On supported Xiaomi devices, the 32-bit Zygote process will only launch when a 32-bit app is opened, saving RAM at the cost of a slight initial launch delay for those apps. Also disables 32-bit dex2oat optimization.
 *   **Disable LSPosed Logs:** Prevents apps from detecting Zygisk by reading LSPosed properties via `getprop`.
 *   **Dynamic Prop Hiding:** If Shamiko is installed, the module avoids setting redundant properties. If Shamiko is not present, it applies basic properties to help bypass simple bootloader checks.
+
+### Maintenance & Self-Healing (PIFS Only)
+To provide a seamless "set it and forget it" experience, the module incorporates intelligent, automated systems that work in the background to maintain compliance and resilience.
+
+*   **Dynamic Security Patch Spoofing:** Breathe new life into older devices. The module intelligently detects if your device's security patch is more than 6 months old. If so, it automatically spoofs the patch date to a recent, plausible value, helping you pass integrity checks even on unsupported hardware. This process is fully automatic, requiring zero user intervention.
+*   **Proactive Keybox Rotation:** To stay one step ahead of Google's detection methods, the module actively refreshes its disguise. During specific actions (like an update), it attempts to download a fresh, random, and strong-rated `keybox.xml` from the community-driven KeyboxHub. Your existing keybox is safely backed up and restored if the download fails, ensuring you're never left vulnerable. This self-updating mechanism significantly increases your long-term success rate for passing `STRONG` integrity.
 
 ### Version-Specific Features
 *   **Advanced Bootloader Hiding (PIFS Only):** Actively prevents applications from detecting an unlocked bootloader. By default, this targets all applications for maximum effectiveness.
@@ -74,22 +80,20 @@ A list of package names that the module will target.
 
 ### Keybox File (PIFS & PIFB)
 Used for certificate spoofing to pass the `STRONG` integrity check.
-*   **PIFB Path:** `/data/adb/keybox.xml`
-*   **PIFS Path:** `/data/adb/tricky_store/keybox.xml`
-*   **Guide:** To find and contribute keybox files, visit
+   **PIFB Path:** `/data/adb/keybox.xml`
+   **PIFS Path:** `/data/adb/tricky_store/keybox.xml`
+   **Guide:** To find and contribute keybox files, visit
 [KeyboxHub](https://tryigit.dev/keybox/).
 
 [Keybox Checker](https://tryigit.dev/keybox/checker/).
 
 ### Security Patch File (PIFS Only)
 Spoofs the security patch date, which can help pass integrity checks on EOL (End-of-Life) devices running Android 13+. This file does not exist by default; you must create it.
-*   **Path:** `/data/adb/tricky_store/security_patch.txt`
-*   **Example Content** (for January 1, 2025):
+   **Path:** `/data/adb/tricky_store/security_patch.txt`
+   **Example Content** (for January 1, 2025):
     ```
     20250101
     ```
-
----
 
 ## ⚙️ Advanced Settings (Use with Caution)
 
@@ -99,8 +103,8 @@ This experimental feature automatically adds all system apps to the Magisk DenyL
 > [!WARNING]
 > This feature may cause instability or break modules that modify system files (e.g., custom GPU drivers). **Do not use on Custom ROMs.** To enable it, move the corresponding script file into its active path.
 
-*   **PIFB Script:** `/data/adb/SystemAppAdd.sh`
-*   **PIFS Script:** `/data/adb/tricky_store/AllTargetMagiskhide.sh`
+   **PIFB Script:** `/data/adb/SystemAppAdd.sh`
+   **PIFS Script:** `/data/adb/tricky_store/AllTargetMagiskhide.sh`
 
 ### How to Check Your Motherboard's Hardware Country
 Run this command in a terminal to see your device's factory region code:
@@ -108,11 +112,9 @@ Run this command in a terminal to see your device's factory region code:
 getprop ro.boot.hwc
 ```
 
----
-
 ## 💬 Community & Disclaimer
 
-*   **Telegram:** For discussions and community support, join the [Clever Tech Telegram Group](https://t.me/cleverestech).
+**Telegram:** For discussions and community support, join the [Clever Tech Telegram Group](https://t.me/cleverestech).
 
 > [!NOTE]
 > This project is shared "as-is" for users who find it helpful. This GitHub repository primarily serves to distribute updates and is a fork of another project (see changelog for attribution).
