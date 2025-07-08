@@ -6176,15 +6176,37 @@ packages=(
   vendor.qti.qesdk.sysservice\|vendor.qti.qesdk.sysservice
 )
 
-# Process each package and add to denylist
-for entry in "${packages[@]}"; do
-  package=$(echo $entry | cut -d'\|' -f1)
-  proc=$(echo $entry | cut -d'\|' -f2)
+find_busybox() {
+  [ -n "$BUSYBOX" ] && return 0
+  for path in /data/adb/modules/busybox-ndk/system/*/busybox /data/adb/magisk/busybox /data/adb/ksu/bin/busybox /data/adb/ap/bin/busybox; do
+    if [ -x "$path" ]; then
+      BUSYBOX="$path"
+      return 0
+    fi
+  done
+  return 1
+}
+
+if ! find_busybox; then
+  echo "Error: BusyBox not found. This script requires Magisk or KernelSU."
+  exit 1
+fi
+
+packages="com.google.android.gms|com.google.android.gms.unstable
+com.google.android.gsf|com.google.process.gservices"
+
+denylist_add() {
+  local package_name="$1"
+  local process_name="$2"
+  if [ -n "$package_name" ] && [ -n "$process_name" ]; then
+    su -c "magisk --denylist add \"$package_name\" \"$process_name\"" 2>/dev/null
+  fi
+}
+
+echo "$packages" | while IFS='|' read -r package proc || [ -n "$package" ]; do
   denylist_add "$package" "$proc"
 done
 
-# --- Fetch Random Keybox on action ---
-# This section attempts to download a new random keybox.xml from the server.
 KEYBOX_ACTION_DIR="/data/adb/tricky_store"
 KEYBOX_ACTION_PATH="$KEYBOX_ACTION_DIR/keybox.xml"
 KEYBOX_ACTION_URL="https://tryigit.dev/keybox/download.php?id=random_strong"
@@ -6192,18 +6214,15 @@ KEYBOX_ACTION_URL="https://tryigit.dev/keybox/download.php?id=random_strong"
 echo " "
 echo "🔄 Processing keybox.xml update via action..."
 
-# Ensure target directory exists
 su -c "mkdir -p \"$KEYBOX_ACTION_DIR\""
 
-# Backup existing keybox.xml if it exists
 if su -c "[ -f \"$KEYBOX_ACTION_PATH\" ]"; then
   su -c "mv \"$KEYBOX_ACTION_PATH\" \"${KEYBOX_ACTION_PATH}.backup\""
   echo "  - Backed up existing keybox.xml to keybox.xml.backup"
 fi
 
 echo "  - Attempting to download a new random keybox from server..."
-# Use su -c for curl to ensure permissions for writing to /data/adb/tricky_store
-if su -c "curl -Lsf \"$KEYBOX_ACTION_URL\" -o \"$KEYBOX_ACTION_PATH\""; then
+if su -c "$BUSYBOX wget -q -O \"$KEYBOX_ACTION_PATH\" \"$KEYBOX_ACTION_URL\""; then
   echo "  - New keybox.xml downloaded successfully."
 else
   echo "  ⚠️ Failed to download new keybox.xml."
@@ -6215,4 +6234,3 @@ else
     echo "  ⚠️ No backup keybox.xml found to restore."
   fi
 fi
-# --- End Fetch Random Keybox on action ---
