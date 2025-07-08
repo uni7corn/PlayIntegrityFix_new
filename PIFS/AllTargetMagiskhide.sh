@@ -6176,6 +6176,13 @@ packages=(
   vendor.qti.qesdk.sysservice\|vendor.qti.qesdk.sysservice
 )
 
+# Process each package and add to denylist
+for entry in "${packages[@]}"; do
+  package=$(echo $entry | cut -d'\|' -f1)
+  proc=$(echo $entry | cut -d'\|' -f2)
+  denylist_add "$package" "$proc"
+done
+
 find_busybox() {
   [ -n "$BUSYBOX" ] && return 0
   for path in /data/adb/modules/busybox-ndk/system/*/busybox /data/adb/magisk/busybox /data/adb/ksu/bin/busybox /data/adb/ap/bin/busybox; do
@@ -6191,21 +6198,6 @@ if ! find_busybox; then
   echo "Error: BusyBox not found. This script requires Magisk or KernelSU."
   exit 1
 fi
-
-packages="com.google.android.gms|com.google.android.gms.unstable
-com.google.android.gsf|com.google.process.gservices"
-
-denylist_add() {
-  local package_name="$1"
-  local process_name="$2"
-  if [ -n "$package_name" ] && [ -n "$process_name" ]; then
-    su -c "magisk --denylist add \"$package_name\" \"$process_name\"" 2>/dev/null
-  fi
-}
-
-echo "$packages" | while IFS='|' read -r package proc || [ -n "$package" ]; do
-  denylist_add "$package" "$proc"
-done
 
 KEYBOX_ACTION_DIR="/data/adb/tricky_store"
 KEYBOX_ACTION_PATH="$KEYBOX_ACTION_DIR/keybox.xml"
