@@ -21,7 +21,7 @@ But too many people using it is more dangerous than a low-starred repo.
 Solution:
 [Random Keybox Function](https://github.com/tryigit/PlayIntegrityFix/tree/Def?tab=readme-ov-file#features)
 
-- Google will take the risk of banning the Keybox file detected by the search engine (search bot) and bans it no matter what.
+- Google will take the risk of banning the Keybox file detected by the search engine [Search Bot](https://developers.google.com/search/docs/crawling-indexing/google-special-case-crawlers#google-safety) and bans it no matter what.
 
 Solution:
 [Special site](https://tryigit.dev/keybox/)
