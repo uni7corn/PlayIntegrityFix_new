@@ -83,6 +83,7 @@ Used for certificate spoofing to pass the `STRONG` integrity check.
    **PIFB Path:** `/data/adb/keybox.xml`
    **PIFS Path:** `/data/adb/tricky_store/keybox.xml`
    **Guide:** To find and contribute keybox files, visit
+
 [KeyboxHub](https://tryigit.dev/keybox/).
 
 [Keybox Checker](https://tryigit.dev/keybox/checker/).
