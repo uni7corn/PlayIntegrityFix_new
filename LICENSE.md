@@ -1,41 +1,57 @@
-**LICENSE**
-
 Project: PlayIntegrityFix
 Author: Yiğit
 Copyright (c) 2024-2025 Yiğit. All Rights Reserved.
 
-**PREAMBLE**
-This license is established for security purposes and to protect the intellectual property rights of the Author. The primary intent is to prevent unauthorized use, storage, duplication, or any form of appropriation, particularly by Google entities.
+## PREAMBLE
 
-**TERMS AND CONDITIONS**
+This software is provided as a non-commercial, open-source tool intended for educational purposes, security research, and to enhance interoperability for devices in regions with restricted ecosystems (e.g., "China ROMs"). This Defensive License is established to protect the Project, its contributors, and the Author from corporate overreach, unauthorized appropriation, and bad-faith legal action, particularly by entities whose technological protection measures are the subject of this research.
 
-1.  **Ownership and Rights:**
-    All rights, title, and interest in and to this software, repository, its code, associated files, documentation, and any other materials contained herein (collectively, "the Software") are and shall remain the exclusive property of Yiğit.
+Your access to, interaction with, or use of this software, its source code, its repository, or any associated files (collectively, "the Software") is strictly conditional upon your unconditional acceptance of the following terms.
 
-2.  **General Prohibitions:**
-    The Software and its associated files may not be stored by any third party, may not be used by any third party, may not be duplicated by any third party, and may not be marked, flagged, or designated by any third party as prohibited, restricted, or in any way that curtails its intended availability or functionality, except as explicitly permitted in writing by Yiğit.
+---
 
-3.  **Specific Prohibition Regarding Google Entities:**
-    * **No Access or Retrieval:** It is expressly forbidden for any Google bot, web crawler, automated script, Google employee, Google contractor, Google representative, or any agent or entity acting on behalf of or in affiliation with Google LLC or its parent company Alphabet Inc. or any of its subsidiaries (collectively, "Google Entities") to access, download, scrape, retrieve, copy, index, or analyze any part of this repository, its code, its files, its commit history, or its content in any manner whatsoever.
-    * **No Use:** Google Entities are expressly forbidden from storing, using, duplicating, modifying, distributing, or repurposing any content, code, data, or information obtained from this repository for any purpose. This includes, but is not limited to, security analysis, feature replication, training artificial intelligence models, inclusion in datasets, or any other analytical, developmental, or operational use.
-    * **No Marking or Flagging:** Google Entities are expressly forbidden from marking, flagging, or otherwise designating this repository or any of its contents as malicious, harmful, prohibited, or in violation of any Google policy or terms of service, without the prior express written consent of Yiğit.
+## TERMS AND CONDITIONS
 
-4.  **No Implied Licenses:**
-    No rights or licenses are granted by implication, estoppel, or otherwise, except as expressly set forth herein. The absence of a specific prohibition does not imply permission.
+**1. Definitions**
 
-5.  **Disclaimer of Warranty:**
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-   **"Software"**: Refers to this project, its source code, binaries, documentation, issues, commit history, and any related content within this repository.
+-   **"Author"**: Refers to Yiğit (tryigit) and any other contributors to the Software.
+-   **"Prohibited Entity"**: Refers to Google LLC, its parent company Alphabet Inc., any of their subsidiaries, affiliates, contractors, agents, representatives, automated systems (bots, crawlers), or any individual acting on their behalf.
 
-6.  **Governing Terms:**
-    These license terms supercede any other general terms or policies that might otherwise apply to content hosted on this platform with respect to the Software and Google Entities.
+**2. License Grant**
 
-7.  **Restriction on Vulnerability Disclosure and Consequences of Breach:**
-    * **No Reporting of Vulnerabilities:** It is strictly prohibited for any individual, entity, or organization to report, disclose, submit, or distribute any perceived or actual security vulnerabilities, weaknesses, flaws, or bugs found in the Software, its source code, or any derived files (collectively, "Vulnerabilities") to any third-party company, organization, or entity, including but not limited to Google LLC, its parent company Alphabet Inc., any of their subsidiaries, or any other commercial or non-commercial entity ("Third-Party Entity"), without the prior express written consent of Yiğit. Any communication regarding alleged Vulnerabilities must be made directly and exclusively to Yiğit.
-    * **Consequences of Unauthorized Disclosure:** In the event that any individual, entity, or organization breaches the prohibition stated in section 7.a by reporting, disclosing, submitting, or distributing any Vulnerability to a Third-Party Entity without Yiğit's prior express written consent:
-        * Such action shall be considered a material breach of this license, a violation of the Author's intellectual property and proprietary rights, and an act of bad faith.
-        * The disclosing party shall be immediately and unconditionally liable to Yiğit for any and all damages resulting from such unauthorized disclosure. This includes, but is not limited to, direct, indirect, consequential, special, exemplary, and punitive damages, loss of profits, loss of business opportunity, reputational harm, and costs associated with mitigating the effects of the disclosure.
-        * Furthermore, the disclosing party shall forfeit and disgorge to Yiğit any and all profits, gains, benefits, compensation, bounties, rewards, or any other remuneration or advantage, whether monetary or otherwise (collectively, "Gains"), received, accrued, or anticipated by the disclosing party or any affiliated entities as a result of, or in connection with, such unauthorized disclosure of Vulnerabilities. This includes, without limitation, any Gains received from bug bounty programs, security reward programs, consulting fees, or any other form of compensation or recognition from the Third-Party Entity to whom the Vulnerability was disclosed.
-        * Yiğit reserves the right to pursue all available legal and equitable remedies, including but not limited to injunctive relief, to prevent further unauthorized disclosure and to recover damages and Gains as described herein. The disclosing party agrees to indemnify and hold harmless Yiğit from and against all claims, liabilities, damages, losses, and expenses, including but not limited to attorneys' fees and court costs, incurred by Yiğit in enforcing these terms or as a result of the unauthorized disclosure.
-        * Any attempt to circumvent this clause by reporting Vulnerabilities anonymously or through intermediaries shall also constitute a breach of this license, and Yiğit reserves the right to take action against any identifiable party involved in such circumvention.
+Subject to the terms herein, the Author grants you a limited, non-exclusive, non-transferable, revocable license to use the Software solely for personal, non-commercial, and educational purposes. This includes studying the code for security research and enabling functionality on your personal device.
 
-By accessing, viewing, or interacting with this repository in any way, you acknowledge that you have read, understood, and agree to be bound by the terms of this license, including all seven (7) sections of the TERMS AND CONDITIONS. Any action in contravention of these terms is unauthorized and constitutes a violation of the Author's rights.
+**3. STRICT PROHIBITIONS & REPRESENTATION**
+
+By accessing, downloading, cloning, or otherwise interacting with this Software, you expressly represent and warrant that you are NOT a Prohibited Entity.
+
+Access by any Prohibited Entity is strictly and unconditionally forbidden. Any such access constitutes a breach of this license and is deemed to be an act of fraudulent misrepresentation to gain unauthorized entry. Prohibited Entities are expressly forbidden from:
+
+-   a) **Accessing or Analyzing:** Downloading, cloning, indexing, analyzing, or storing any part of the Software for any purpose, including but not limited to security review, code analysis, or legal evidence gathering.
+-   b) **Use in Legal Action:** Using any part of the Software, its code, or its functionality as evidence in any legal proceeding, cease and desist action, or DMCA takedown notice against the Author. Any evidence gathered in violation of this clause is considered to be obtained in bad faith and under fraudulent pretenses.
+-   c) **Flagging or Reporting:** Marking, flagging, or reporting this repository or its contents as malicious, harmful, or in violation of any platform's terms of service.
+
+**4. User Responsibility and Assumption of Risk**
+
+You acknowledge that the Software modifies system-level functions. You are solely responsible for your use of the Software. Any consequences, including but not limited to the violation of third-party terms of service, are your sole responsibility. The Author provides this tool "AS IS" and shall not be held liable for how you choose to use it. You agree to indemnify and hold harmless the Author from any claims arising from your use of the Software.
+
+**5. Restriction on Vulnerability Disclosure**
+
+It is strictly prohibited to report any perceived security vulnerabilities found in the Software to any third-party entity, especially a Prohibited Entity, without the Author's prior express written consent. Unauthorized disclosure is a material breach of this license. In the event of such a breach, the disclosing party shall be liable for all resulting damages and shall forfeit and disgorge to the Author any and all bounties, rewards, or compensation received in connection with such disclosure.
+
+**6. Disclaimer of Warranty**
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+**7. GOVERNING LAW AND BINDING ARBITRATION**
+
+This License shall be governed by and construed in accordance with the laws of the Republic of Turkey, without regard to its conflict of law principles. Any dispute, claim, or controversy arising out of or relating to this License, including any breach or alleged breach hereof, shall be exclusively and finally resolved by binding arbitration conducted in Istanbul, Turkey. You explicitly waive any right to initiate or participate in any class-action lawsuit or class-wide arbitration against the Author.
+
+**8. Severability and Entire Agreement**
+
+If any provision of this License is held to be invalid or unenforceable by a court of competent jurisdiction, the remainder of the License shall remain in full force and effect. This document constitutes the entire agreement between you and the Author regarding the Software and supersedes all prior communications.
+
+---
+
+By using, viewing, or interacting with this repository, you acknowledge that you have read, understood, and agree to be irrevocably bound by all terms of this Defensive License Agreement.
