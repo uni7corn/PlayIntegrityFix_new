@@ -32,21 +32,13 @@ fi
 packages=$(su -c "pm list packages -s | cut -d ':' -f 2") 
 
 # Add each package to the Magisk denylist
-for package in $packages; do
-    su -c "magisk --denylist add '$package'"
-done
+{
+  for package in $packages; do
+      echo "magisk --denylist add '$package'"
+  done
+} | su -c sh
 
 # Add packages to Magisk denylist
-denylist_add() {
-  package=$1
-  proc=$2
-
-  if [ -z "$proc" ]; then
-    su -c "magisk --denylist add $package"
-  else
-    su -c "magisk --denylist add $package $proc"
-  fi
-}
 
 packages=(
   android.aosp.overlay\|android.aosp.overlay
