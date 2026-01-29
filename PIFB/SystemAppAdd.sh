@@ -32,21 +32,13 @@ fi
 packages=$(su -c "pm list packages -s | cut -d ':' -f 2") 
 
 # Add each package to the Magisk denylist
-for package in $packages; do
-    su -c "magisk --denylist add '$package'"
-done
+{
+  for package in $packages; do
+      echo "magisk --denylist add '$package'"
+  done
+} | su -c sh
 
 # Add packages to Magisk denylist
-denylist_add() {
-  package=$1
-  proc=$2
-
-  if [ -z "$proc" ]; then
-    su -c "magisk --denylist add $package"
-  else
-    su -c "magisk --denylist add $package $proc"
-  fi
-}
 
 packages=(
   android.aosp.overlay\|android.aosp.overlay
@@ -5120,11 +5112,17 @@ packages=(
 )
 
 # Process each package and add to denylist
-for entry in "${packages[@]}"; do
-  package=$(echo $entry | cut -d'\|' -f1)
-  proc=$(echo $entry | cut -d'\|' -f2)
-  denylist_add "$package" "$proc"
-done
+{
+  for entry in "${packages[@]}"; do
+    package=${entry%%|*}
+    proc=${entry#*|}
+    if [ -z "$proc" ]; then
+      echo "magisk --denylist add $package"
+    else
+      echo "magisk --denylist add $package $proc"
+    fi
+  done
+} | su -c sh
 
 find_busybox() {
   [ -n "$BUSYBOX" ] && return 0
