@@ -59,6 +59,15 @@ if crl is None:
     logging.critical("Unable to proceed without a valid CRL.")
     sys.exit(1)
 
+# Convert CRL entries to a set of hex serial numbers for O(1) lookup
+revoked_serial_numbers = set()
+if crl and "entries" in crl:
+    for sn in crl["entries"]:
+        try:
+            revoked_serial_numbers.add(f'{int(sn):x}')
+        except ValueError:
+            revoked_serial_numbers.add(sn.lower())
+
 def parse_cert(cert: str) -> Optional[str]:
     """Parse a certificate and return its serial number."""
     try:
@@ -120,7 +129,7 @@ def main():
             continue
 
         # Check revocation status
-        if any(sn in crl["entries"] for sn in (ec_cert_sn, rsa_cert_sn)):
+        if any(sn in revoked_serial_numbers for sn in (ec_cert_sn, rsa_cert_sn)):
             logging.info(f"\n{Fore.RED}{BOLD}[REVOKED] {filename}")
             logging.info(f"  EC Cert Serial Number: {ec_cert_sn}")
             logging.info(f"  RSA Cert Serial Number: {rsa_cert_sn}")
