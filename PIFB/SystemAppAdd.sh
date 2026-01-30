@@ -14,17 +14,18 @@ if [ -d "/data/adb/modules/zygisk_lsposed" ] || [ -d "/data/adb/modules/zygisk_s
 fi
 
 rm -rf /data/adb/tricky_store/AllAppsTarget.sh
-su -c "magisk --denylist add com.google.android.gms com.google.android.gms.unstable"
-su -c "magisk --denylist add com.google.android.gsf com.google.process.gservices"
-su -c "magisk --denylist add com.google.android.gsf com.google.process.gapps"
+# Optimization: Batch multiple root commands into a single su session to reduce overhead
+{
+    echo "magisk --denylist add com.google.android.gms com.google.android.gms.unstable"
+    echo "magisk --denylist add com.google.android.gsf com.google.process.gservices"
+    echo "magisk --denylist add com.google.android.gsf com.google.process.gapps"
 
-# PIFS
-if [ -d "/data/adb/tricky_store" ] || [ -d "/data/adb/modules_update/tricky_store" ]; then
-    su -c rm -f /data/adb/tricky_store/AllAppTarget.sh
-    
-    su -c > /data/adb/tricky_store/target.txt
-    su -c pm list packages | awk -F: '{print $2}' > /data/adb/tricky_store/target.txt
-fi 
+    # PIFS
+    echo "if [ -d '/data/adb/tricky_store' ] || [ -d '/data/adb/modules_update/tricky_store' ]; then"
+    echo "    rm -f /data/adb/tricky_store/AllAppTarget.sh"
+    echo "    pm list packages | awk -F: '{print \$2}' > /data/adb/tricky_store/target.txt"
+    echo "fi"
+} | su -c sh
 
 # PIFB/PIFS
 
