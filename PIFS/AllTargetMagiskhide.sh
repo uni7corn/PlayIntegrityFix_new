@@ -26,7 +26,7 @@ if [ -d "/data/adb/tricky_store" ] || [ -d "/data/adb/modules_update/tricky_stor
     # Optimization: Batch multiple root commands into a single su session
     {
         echo "rm -f /data/adb/tricky_store/AllAppTarget.sh"
-        echo "pm list packages | awk -F: '{print \$2}' > /data/adb/tricky_store/target.txt"
+        echo "pm list packages | cut -d: -f2 > /data/adb/tricky_store/target.txt"
     } | su -c sh
 fi 
 
