@@ -939,23 +939,25 @@ KEYBOX_ACTION_URL="https://tryigit.dev/keybox/download.php?id=random_strong"
 echo " "
 echo "🔄 Processing keybox.xml update via action..."
 
-su -c "mkdir -p \"$KEYBOX_ACTION_DIR\""
+su -c sh <<EOF
+mkdir -p "$KEYBOX_ACTION_DIR"
 
-if su -c "[ -f \"$KEYBOX_ACTION_PATH\" ]"; then
-  su -c "mv \"$KEYBOX_ACTION_PATH\" \"${KEYBOX_ACTION_PATH}.backup\""
+if [ -f "$KEYBOX_ACTION_PATH" ]; then
+  mv "$KEYBOX_ACTION_PATH" "${KEYBOX_ACTION_PATH}.backup"
   echo "  - Backed up existing keybox.xml to keybox.xml.backup"
 fi
 
 echo "  - Attempting to download a new random keybox from server..."
-if su -c "$BUSYBOX wget -q -O \"$KEYBOX_ACTION_PATH\" \"$KEYBOX_ACTION_URL\""; then
+if $BUSYBOX wget -q -O "$KEYBOX_ACTION_PATH" "$KEYBOX_ACTION_URL"; then
   echo "  - New keybox.xml downloaded successfully."
 else
   echo "  ⚠️ Failed to download new keybox.xml."
   echo "     Please check your internet connection."
-  if su -c "[ -f \"${KEYBOX_ACTION_PATH}.backup\" ]"; then
-    su -c "mv \"${KEYBOX_ACTION_PATH}.backup\" \"$KEYBOX_ACTION_PATH\""
+  if [ -f "${KEYBOX_ACTION_PATH}.backup" ]; then
+    mv "${KEYBOX_ACTION_PATH}.backup" "$KEYBOX_ACTION_PATH"
     echo "  - Restored backup keybox.xml."
   else
     echo "  ⚠️ No backup keybox.xml found to restore."
   fi
 fi
+EOF
