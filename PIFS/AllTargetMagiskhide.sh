@@ -1153,8 +1153,7 @@ if su -c "$BUSYBOX wget -q -O \"$KEYBOX_ACTION_PATH\" \"$KEYBOX_ACTION_URL\""; t
 else
   echo "  ⚠️ Failed to download new keybox.xml."
   echo "     Please check your internet connection."
-  if su -c "[ -f \"${KEYBOX_ACTION_PATH}.backup\" ]"; then
-    su -c "mv \"${KEYBOX_ACTION_PATH}.backup\" \"$KEYBOX_ACTION_PATH\""
+  if su -c "[ -f \"${KEYBOX_ACTION_PATH}.backup\" ] && mv \"${KEYBOX_ACTION_PATH}.backup\" \"$KEYBOX_ACTION_PATH\""; then
     echo "  - Restored backup keybox.xml."
   else
     echo "  ⚠️ No backup keybox.xml found to restore."
