@@ -1142,8 +1142,7 @@ echo "🔄 Processing keybox.xml update via action..."
 
 su -c "mkdir -p \"$KEYBOX_ACTION_DIR\""
 
-if su -c "[ -f \"$KEYBOX_ACTION_PATH\" ]"; then
-  su -c "mv \"$KEYBOX_ACTION_PATH\" \"${KEYBOX_ACTION_PATH}.backup\""
+if su -c "[ -f \"$KEYBOX_ACTION_PATH\" ] && mv \"$KEYBOX_ACTION_PATH\" \"${KEYBOX_ACTION_PATH}.backup\""; then
   echo "  - Backed up existing keybox.xml to keybox.xml.backup"
 fi
 
