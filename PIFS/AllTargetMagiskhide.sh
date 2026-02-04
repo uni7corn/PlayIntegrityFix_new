@@ -26,7 +26,7 @@ if [ -d "/data/adb/tricky_store" ] || [ -d "/data/adb/modules_update/tricky_stor
     # Optimization: Batch multiple root commands into a single su session
     {
         echo "rm -f /data/adb/tricky_store/AllAppTarget.sh"
-        echo "pm list packages | awk -F: '{print \$2}' > /data/adb/tricky_store/target.txt"
+        echo "pm list packages | cut -d: -f2 > /data/adb/tricky_store/target.txt"
     } | su -c sh
 fi 
 
@@ -1140,12 +1140,14 @@ KEYBOX_ACTION_URL="https://tryigit.dev/keybox/download.php?id=random_strong"
 echo " "
 echo "🔄 Processing keybox.xml update via action..."
 
-su -c "mkdir -p \"$KEYBOX_ACTION_DIR\""
-
-if su -c "[ -f \"$KEYBOX_ACTION_PATH\" ]"; then
-  su -c "mv \"$KEYBOX_ACTION_PATH\" \"${KEYBOX_ACTION_PATH}.backup\""
-  echo "  - Backed up existing keybox.xml to keybox.xml.backup"
-fi
+# Optimized: Batch mkdir and backup logic
+{
+  echo "mkdir -p \"$KEYBOX_ACTION_DIR\""
+  echo "if [ -f \"$KEYBOX_ACTION_PATH\" ]; then"
+  echo "  mv \"$KEYBOX_ACTION_PATH\" \"${KEYBOX_ACTION_PATH}.backup\""
+  echo "  echo \"  - Backed up existing keybox.xml to keybox.xml.backup\""
+  echo "fi"
+} | su -c sh
 
 echo "  - Attempting to download a new random keybox from server..."
 if su -c "$BUSYBOX wget -q -O \"$KEYBOX_ACTION_PATH\" \"$KEYBOX_ACTION_URL\""; then
@@ -1153,8 +1155,7 @@ if su -c "$BUSYBOX wget -q -O \"$KEYBOX_ACTION_PATH\" \"$KEYBOX_ACTION_URL\""; t
 else
   echo "  ⚠️ Failed to download new keybox.xml."
   echo "     Please check your internet connection."
-  if su -c "[ -f \"${KEYBOX_ACTION_PATH}.backup\" ]"; then
-    su -c "mv \"${KEYBOX_ACTION_PATH}.backup\" \"$KEYBOX_ACTION_PATH\""
+  if su -c "[ -f \"${KEYBOX_ACTION_PATH}.backup\" ] && mv \"${KEYBOX_ACTION_PATH}.backup\" \"$KEYBOX_ACTION_PATH\""; then
     echo "  - Restored backup keybox.xml."
   else
     echo "  ⚠️ No backup keybox.xml found to restore."
