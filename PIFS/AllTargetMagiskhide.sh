@@ -26,7 +26,7 @@ if [ -d "/data/adb/tricky_store" ] || [ -d "/data/adb/modules_update/tricky_stor
     # Optimization: Batch multiple root commands into a single su session
     {
         echo "rm -f /data/adb/tricky_store/AllAppTarget.sh"
-        echo "pm list packages | awk -F: '{print \$2}' > /data/adb/tricky_store/target.txt"
+        echo "pm list packages | cut -d: -f2 > /data/adb/tricky_store/target.txt"
     } | su -c sh
 fi 
 
@@ -1152,8 +1152,7 @@ if su -c "$BUSYBOX wget -q -O \"$KEYBOX_ACTION_PATH\" \"$KEYBOX_ACTION_URL\""; t
 else
   echo "  ⚠️ Failed to download new keybox.xml."
   echo "     Please check your internet connection."
-  if su -c "[ -f \"${KEYBOX_ACTION_PATH}.backup\" ]"; then
-    su -c "mv \"${KEYBOX_ACTION_PATH}.backup\" \"$KEYBOX_ACTION_PATH\""
+  if su -c "[ -f \"${KEYBOX_ACTION_PATH}.backup\" ] && mv \"${KEYBOX_ACTION_PATH}.backup\" \"$KEYBOX_ACTION_PATH\""; then
     echo "  - Restored backup keybox.xml."
   else
     echo "  ⚠️ No backup keybox.xml found to restore."

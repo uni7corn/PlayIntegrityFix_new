@@ -21,12 +21,10 @@ if ! find_busybox; then
   exit 1
 fi
 
-su -c "magisk --denylist add com.google.android.gms com.google.android.gms.unstable" 2>/dev/null
-su -c "magisk --denylist add com.google.android.gsf com.google.process.gservices" 2>/dev/null
-su -c "magisk --denylist add com.google.android.gsf com.google.process.gapps" 2>/dev/null
+su -c "magisk --denylist add com.google.android.gms com.google.android.gms.unstable; magisk --denylist add com.google.android.gsf com.google.process.gservices; magisk --denylist add com.google.android.gsf com.google.process.gapps" 2>/dev/null
 
 su -c "> /data/adb/tricky_store/target.txt"
-su -c "pm list packages | $BUSYBOX awk -F: '{print \$2}' > /data/adb/tricky_store/target.txt"
+su -c "pm list packages | cut -d: -f2 > /data/adb/tricky_store/target.txt"
 
 KEYBOX_ACTION_DIR="/data/adb/tricky_store"
 KEYBOX_ACTION_PATH="$KEYBOX_ACTION_DIR/keybox.xml"
@@ -37,8 +35,7 @@ echo "🔄 Processing keybox.xml update via action..."
 
 su -c "mkdir -p \"$KEYBOX_ACTION_DIR\""
 
-if su -c "[ -f \"$KEYBOX_ACTION_PATH\" ]"; then
-  su -c "mv \"$KEYBOX_ACTION_PATH\" \"${KEYBOX_ACTION_PATH}.backup\""
+if su -c "[ -f \"$KEYBOX_ACTION_PATH\" ] && mv \"$KEYBOX_ACTION_PATH\" \"${KEYBOX_ACTION_PATH}.backup\""; then
   echo "  - Backed up existing keybox.xml to keybox.xml.backup"
 fi
 
