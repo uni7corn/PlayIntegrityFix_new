@@ -1140,14 +1140,11 @@ KEYBOX_ACTION_URL="https://tryigit.dev/keybox/download.php?id=random_strong"
 echo " "
 echo "🔄 Processing keybox.xml update via action..."
 
-# Optimized: Batch mkdir and backup logic
-{
-  echo "mkdir -p \"$KEYBOX_ACTION_DIR\""
-  echo "if [ -f \"$KEYBOX_ACTION_PATH\" ]; then"
-  echo "  mv \"$KEYBOX_ACTION_PATH\" \"${KEYBOX_ACTION_PATH}.backup\""
-  echo "  echo \"  - Backed up existing keybox.xml to keybox.xml.backup\""
-  echo "fi"
-} | su -c sh
+su -c "mkdir -p \"$KEYBOX_ACTION_DIR\""
+
+if su -c "[ -f \"$KEYBOX_ACTION_PATH\" ] && mv \"$KEYBOX_ACTION_PATH\" \"${KEYBOX_ACTION_PATH}.backup\""; then
+  echo "  - Backed up existing keybox.xml to keybox.xml.backup"
+fi
 
 echo "  - Attempting to download a new random keybox from server..."
 if su -c "$BUSYBOX wget -q -O \"$KEYBOX_ACTION_PATH\" \"$KEYBOX_ACTION_URL\""; then
