@@ -21,9 +21,7 @@ if ! find_busybox; then
   exit 1
 fi
 
-su -c "magisk --denylist add com.google.android.gms com.google.android.gms.unstable" 2>/dev/null
-su -c "magisk --denylist add com.google.android.gsf com.google.process.gservices" 2>/dev/null
-su -c "magisk --denylist add com.google.android.gsf com.google.process.gapps" 2>/dev/null
+su -c "magisk --denylist add com.google.android.gms com.google.android.gms.unstable; magisk --denylist add com.google.android.gsf com.google.process.gservices; magisk --denylist add com.google.android.gsf com.google.process.gapps" 2>/dev/null
 
 su -c "> /data/adb/tricky_store/target.txt"
 su -c "pm list packages | $BUSYBOX awk -F: '{print \$2}' > /data/adb/tricky_store/target.txt"
