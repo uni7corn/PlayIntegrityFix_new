@@ -37,7 +37,7 @@ This project offers two distinct versions to suit different needs. Choose the ve
 
 Before proceeding with the installation, ensure your device meets the following requirements:
 
-* Root Solution: Magisk or KernelSU
+* Root Solution: KernelSU
 * Zygisk: Enabled
 * CPU Architecture: 64 bit arm64 v8a
 * ROM: Official ROM is highly recommended for optimal results, especially the China ROM
@@ -98,15 +98,6 @@ Spoofs the security patch date which can help pass integrity checks on End of Li
 ***
 
 ## Advanced Settings Use with Caution
-
-### Add All System Apps to Magisk DenyList
-This experimental feature automatically adds all system apps to the Magisk DenyList. It is disabled by default due to potential conflicts.
-
-> [!WARNING]
-> This feature may cause instability or break modules that modify system files such as custom GPU drivers. Do not use this feature on Custom ROMs. To enable it, move the corresponding script file into its active path.
-
-* PIFB Script: /data/adb/SystemAppAdd.sh
-* PIFS Script: /data/adb/tricky_store/AllTargetMagiskhide.sh
 
 ### How to Check Your Motherboard Hardware Country
 Run the following command in a terminal to see your device factory region code:
