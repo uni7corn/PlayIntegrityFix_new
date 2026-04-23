@@ -7,7 +7,7 @@
 
 find_busybox() {
   [ -n "$BUSYBOX" ] && return 0
-  for path in /data/adb/modules/busybox-ndk/system/*/busybox /data/adb/magisk/busybox /data/adb/ksu/bin/busybox /data/adb/ap/bin/busybox; do
+  for path in /data/adb/modules/busybox-ndk/system/*/busybox /data/adb/ksu/bin/busybox /data/adb/ap/bin/busybox; do
     if [ -x "$path" ]; then
       BUSYBOX="$path"
       return 0
@@ -17,11 +17,10 @@ find_busybox() {
 }
 
 if ! find_busybox; then
-  echo "Error: BusyBox not found. This script requires Magisk or KernelSU."
+  echo "Error: BusyBox not found. This script requires KernelSU."
   exit 1
 fi
 
-su -c "magisk --denylist add com.google.android.gms com.google.android.gms.unstable; magisk --denylist add com.google.android.gsf com.google.process.gservices; magisk --denylist add com.google.android.gsf com.google.process.gapps" 2>/dev/null
 
 su -c "pm list packages | cut -d: -f2 > /data/adb/tricky_store/target.txt"
 
